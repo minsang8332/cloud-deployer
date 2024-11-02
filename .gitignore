@@ -1,2 +1,3 @@
 /rdb/data/*
 !/rdb/data/.gitkeep
+.env.*

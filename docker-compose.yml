@@ -1,18 +1,28 @@
 version: '3.8'
 services:
-    was:
-        container_name: was
+    proxy:
+        container_name: proxy
         build:
-            context: ./was
-        restart: always
+            context: ./proxy
+        ports:
+            - 80:80
+            - 443:443
         networks:
             - workbench-cloud
+    api:
+        container_name: api
+        build:
+            context: ./api
         ports:
-            - 8080:${WAS_PORT}
+            - 8080:8080
+            - 8443:8443
+        networks:
+            - workbench-cloud
     rdb:
         container_name: rdb
         build:
             context: ./rdb
+        restart: always
         environment:
             - MYSQL_DATABASE=${DATABASE_NAME}
             - MYSQL_USER=${DATABASE_USER}
