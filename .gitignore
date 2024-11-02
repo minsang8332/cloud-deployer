@@ -1,3 +1,4 @@
 /rdb/data/*
 !/rdb/data/.gitkeep
 .env.*
+/mariadb/data/**
