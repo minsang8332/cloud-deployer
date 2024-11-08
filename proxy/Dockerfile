@@ -19,9 +19,11 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY conf.d /etc/nginx/tmp/conf.d
 COPY scripts /home/user/scripts
 
+WORKDIR /home/user/scripts
+RUN chmod +x *
+RUN ./init.sh
+
 EXPOSE 80
 EXPOSE 443
-
-RUN /home/user/scripts/initialize.sh
 
 ENTRYPOINT ["sh", "-c", "crond -s & nginx -g 'daemon off;'"]

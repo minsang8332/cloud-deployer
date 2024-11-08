@@ -17,7 +17,6 @@ chmod -R 755 /var/www/html/.well-known
 cd /home/user/scripts
 # getssl 다운로드
 wget https://raw.githubusercontent.com/srvrco/getssl/master/getssl
-chmod +x *
 # cron 설정
 mkdir -p /root/.cache/crontab
 echo "0 0 1 * * /home/user/scripts/certificate.sh > /dev/null 2>&1" | crontab -
