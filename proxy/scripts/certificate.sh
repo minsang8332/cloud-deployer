@@ -7,7 +7,7 @@ exists_domain () {
         exit 1
     fi
     for ip in $ip_list; do
-        ping -c 3 -W 3 $IP > /dev/null
+        ping -c 3 -W 3 $ip > /dev/null
         if [ $? -eq 0 ]; then
             exit 0
         fi
@@ -33,10 +33,11 @@ make_certfile "$STAGE_CA"
 if [ -f "./$ROOT_DOMAIN/fullchain.pem" ]; then
     rm -rf $ROOT_DOMAIN
     make_certfile "$REAL_CA"
-    tmp="/etc/nginx/_conf.d"
+    tmp="/etc/nginx/tmp/conf.d"
     if [ -d "$tmp" ]; then
-        mv "$tmp" /etc/nginx/conf.d && nginx -s reload
+        mv "$tmp" /etc/nginx/conf.d
     fi
+    nginx -s reload
     exit 0
 fi;
 exit 254

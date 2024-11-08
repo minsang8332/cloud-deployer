@@ -16,7 +16,7 @@ RUN apk update && \
     git
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY conf.d /etc/nginx/conf.d
+COPY conf.d /etc/nginx/tmp/conf.d
 COPY scripts /home/user/scripts
 
 EXPOSE 80
