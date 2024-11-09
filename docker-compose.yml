@@ -18,7 +18,7 @@ services:
         container_name: mariadb
         build:
             context: ./mariadb
-        restart: always
+        # restart: always
         environment:
             - MARIADB_USER=${MARIADB_DATABASE_USER}
             - MARIADB_PASSWORD=${MARIADB_DATABASE_PASSWORD}
@@ -26,6 +26,21 @@ services:
             - USE_PORT_MAPPING=${MARIADB_USE_PORT_MAPPING}
         ports: 
             - 3306:3306
+        volumes:
+            - ./redis/data:/data
+        networks:
+            - private
+    redis:
+        container_name: redis
+        build:
+            context: ./redis
+            args:
+                - REDIS_PASSWORD=${REDIS_PASSWORD}
+        # restart: always
+        environment:
+            - REDIS_PASSWORD=${REDIS_PASSWORD}
+        ports: 
+            - 6379:6379
         volumes:
             - ./mariadb/data:/var/lib/mysql
             - ./mariadb/sql:/docker-entrypoint-initdb.d
